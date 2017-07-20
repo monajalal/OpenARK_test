@@ -7,6 +7,9 @@ Eventually, right click on the **main.cpp** from the **Source Files** and click 
 
 The **test.cpp** code depends on the **CVAR** dataset and you can download it from [ICG-Hand Detection and 3D Pose Estimation Website](https://www.tugraz.at/fileadmin/user_upload/Institute/ICG/Downloads/team_lepetit/3d_hand_pose/CVAR_dataset.zip). In our case, **CVAR** dataset exists in **E:\datasets\hand\CVAR** and if you have placed it somewhere else, you should change the paths accordingly right after **int main() {** in **test.cpp** file.
 
+
+We have used [**Python3.6**](https://www.continuum.io/downloads) from Continuum Analytics for running the Python scripts.
+
 ----
 
 ## Credits and references
