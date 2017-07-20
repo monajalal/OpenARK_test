@@ -1,8 +1,14 @@
-#include "TestCamera.h"
-#include "../Visualizer.h"
+//C++ include files
 #include <iostream>
-#include "../global.h"
 #include <math.h>
+
+//OpenARK include files
+#include "../OpenARK/Visualizer.h"
+#include "../OpenArk/global.h"
+
+//OpenARK_test files
+#include "TestCamera.h"
+
 
 using namespace std;
 using namespace cv;

@@ -8,26 +8,26 @@
 
 // OpenARK Libraries
 #include "TestCamera.h"
-#include "../Visualizer.h"
-#include "../Hand.h"
-#include "../Plane.h"
-#include "../Calibration.h"
-#include "../UDPSender.h"
-#include "../Object3D.h"
-#include "../StreamingAverager.h"
-#include "../global.h"
+#include "../OpenARK/Visualizer.h"
+#include "../OpenARK/Hand.h"
+#include "../OpenARK/Plane.h"
+#include "../OpenARK/Calibration.h"
+#include "../OpenARK/UDPSender.h"
+#include "../OpenARK/Object3D.h"
+#include "../OpenARK/StreamingAverager.h"
+#include "../OpenARK/global.h"
 
 
 using namespace cv;
 
 int main(int argc, char** argv) {
 
-	String path_P1 = "E:\\datasets\\hand\\CVAR\\P1\\*_modified.png";
-	String path_P3 = "E:\\datasets\\hand\\CVAR\\P3\\*_modified.png";
-	String path_P4 = "E:\\datasets\\hand\\CVAR\\P4\\*_modified.png";
-	String path_P5 = "E:\\datasets\\hand\\CVAR\\P5\\*_modified.png";
-	String path_P6 = "E:\\datasets\\hand\\CVAR\\P6\\*_modified.png";
-	String path_P7 = "E:\\datasets\\hand\\CVAR\\P7\\*_modified.png";
+	String path_P1 = "C:\\OpenARK_test\\CVAR\\P1\\*_modified.png";
+	String path_P3 = "C:\\OpenARK_test\\CVAR\\P3\\*_modified.png";
+	String path_P4 = "C:\\OpenARK_test\\CVAR\\P4\\*_modified.png";
+	String path_P5 = "C:\\OpenARK_test\\CVAR\\P5\\*_modified.png";
+	String path_P6 = "C:\\OpenARK_test\\CVAR\\P6\\*_modified.png";
+	String path_P7 = "C:\\OpenARK_test\\CVAR\\P7\\*_modified.png";
 
 	std::vector<String> paths = { path_P1, path_P3, path_P4, path_P5, path_P6, path_P7 };
 
@@ -42,12 +42,12 @@ int main(int argc, char** argv) {
 		auto starttime = clock();
 		auto frame = 0;
 		//Calibration::XYZToUnity(*pmd, 4, 4, 3);
-		FileStorage fs;
-		fs.open("RT_Transform.txt", FileStorage::READ);
-		Mat r, t;
-		fs["R"] >> r;
-		fs["T"] >> t;
-		fs.release();
+		//FileStorage fs;
+		//fs.open("RT_Transform.txt", FileStorage::READ);
+		//Mat r, t;
+		//fs["R"] >> r;
+		//fs["T"] >> t;
+		//fs.release();
 		auto u = UDPSender();
 		auto handAverager = StreamingAverager(4, 0.1);
 		auto paleeteAverager = StreamingAverager(6, 0.05);
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
 				handObject = objects[handObjectIndex];
 				if (os.is_open())
 				{
-					os << file_name << " "; //mona
+					os << file_name << " "; 
 					int num_fingers = handObject.getHand().fingers_xyz.size();
 					for (auto i = 0; i <num_fingers ; i++)
 					{
@@ -149,7 +149,7 @@ int main(int argc, char** argv) {
 				//float hand_pt[3] = { objects[handObjectIndex].getHand().pointer_finger_xyz[0], objects[handObjectIndex].getHand().pointer_finger_xyz[1], objects[handObjectIndex].getHand().pointer_finger_xyz[2]};
 				float hand_pt[3] = { handPos[0], handPos[1], handPos[2] };
 				auto hand_mat = Mat(3, 1, CV_32FC1, &hand_pt);
-				hand_mat = r*hand_mat + t;
+				//hand_mat = r*hand_mat + t;
 				handX = std::to_string(hand_mat.at<float>(0, 0));
 				handY = std::to_string(hand_mat.at<float>(1, 0));
 				handZ = std::to_string(hand_mat.at<float>(2, 0));
@@ -164,7 +164,7 @@ int main(int argc, char** argv) {
 				auto pt = paleeteAverager.addDataPoint(camera->getXYZMap().at<Vec3f>(paletteCenter.y, paletteCenter.x));
 				float palette_pt[3] = { pt[0], pt[1], pt[2] };
 				auto palette_mat = Mat(3, 1, CV_32FC1, &palette_pt);
-				palette_mat = r*palette_mat + t;
+				//palette_mat = r*palette_mat + t;
 				paletteX = std::to_string(palette_mat.at<float>(0, 0));
 				paletteY = std::to_string(palette_mat.at<float>(1, 0));
 				paletteZ = std::to_string(palette_mat.at<float>(2, 0));

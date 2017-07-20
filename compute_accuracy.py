@@ -1,3 +1,5 @@
+__author__ = "Mona Jalal"
+
 import itertools
 import math
 from PIL import Image
@@ -8,19 +10,39 @@ import os
 import itertools
 import linecache
 
-#os.system("C:\\OpenARK\\x64\\Release\\OpenARK-SDK.exe")
-
 openark_line_count = 0
-
 total_correct_fingertips_count = 0
 total_CVAR_fingertips = 0
 per_folder_correct_fingertips_count = {}
 per_folder_accuracy = {}
+openark_files = glob.glob("CVAR_folders\\*.txt")
+CVAR_dataset_path = "C:\\OpenARK_test\\CVAR"
+#CVAR_dataset_path = "E:\\datasets\\hand\\CVAR\\test"
 
 
-CVAR_dataset_path = "E:\\datasets\\hand\\CVAR\\test"
+for subdirs, dirs, files in os.walk(CVAR_dataset_path):
+    for dir in dirs:
+        os.chdir(CVAR_dataset_path +'\\'+dir)
+        root_path = CVAR_dataset_path+"\\"+dir
+        for depth_file in glob.glob("*_depth.png"):
+            im = Image.open(depth_file, 'r')
+            width, height = im.size
+            pixel_val = list(im.getdata())
+            for i in range(len(pixel_val)):
+                if (pixel_val[i] == 32001):
+                    pixel_val[i] = 0
+            np_arr = np.array(pixel_val)
+            np_reshaped = np_arr.reshape(height, width)
+            modified_depth_file = depth_file[:-4] + '_modified.png'
+            cv2.imwrite(modified_depth_file, (np_reshaped).astype(np.uint16))
+        os.chdir('..')
 
-openark_files = glob.glob("cvar_folders\\*.txt")
+os.chdir('C:\\OpenARK_test')
+
+os.system("C:\\OpenARK\\x64\\Release\\OpenARK-SDK.exe")
+
+
+
 for f in openark_files:
     os.remove(f)
 
@@ -44,11 +66,8 @@ if os.path.exists('fingertips_openark.txt'):
                 root_path = CVAR_dataset_path + "\\" + dir
                 fingertips_file = open(root_path + "\\" + "fingertips.txt", 'w')
                 if (os.path.dirname(root_path+"\\") == CVAR_dir):
-                    with open("cvar_folders\\openark_"+os.path.basename(os.path.normpath(CVAR_dir))+".txt", 'a+') as openark_tmp_handle:
+                    with open("CVAR_folders\\openark_"+os.path.basename(os.path.normpath(CVAR_dir))+".txt", 'a+') as openark_tmp_handle:
                         openark_tmp_handle.write(line)
-                        #print(line+'\n')
-
-
 
 
 for subdirs, dirs, files in os.walk(CVAR_dataset_path):
@@ -65,60 +84,32 @@ for subdirs, dirs, files in os.walk(CVAR_dataset_path):
                 sliced_list = list(iter(lambda: list(itertools.islice(iterable, 3)), []))
                 fingertips = []
                 fingertips.extend((sliced_list[16], sliced_list[12], sliced_list[8], sliced_list[4], sliced_list[20]))
-                #fingertips.append(sliced_list[16])
-                #fingertips.append(sliced_list[12])
-                #fingertips.append(sliced_list[8])
-                #fingertips.append(sliced_list[4])
-                #fingertips.append(sliced_list[20])
                 flat_list = [item for sublist in fingertips for item in sublist]
                 str_flat_list = " ".join(str(x) for x in flat_list)
                 fingertips_file.write(str_flat_list + "\n")
 
         fingertips_file.close()
-        for file in glob.glob("*_depth.png"):
-            im = Image.open(file, 'r')
-            width, height = im.size
-            pixel_val = list(im.getdata())
-            for i in range(len(pixel_val)):
-                if (pixel_val[i] == 32001):
-                    pixel_val[i] = 0
-            np_arr = np.array(pixel_val)
-            np_reshaped = np_arr.reshape(height, width)
-            modified_depth_file = file[:-4] + '_modified.png'
-            cv2.imwrite(modified_depth_file, (np_reshaped).astype(np.uint16))
 
         cvar_file = open(root_path+"\\"+"fingertips.txt")
         cvar_file_lines = cvar_file.readlines()
         cvar_fingertips_count = len(cvar_file_lines) * 5
         total_CVAR_fingertips += cvar_fingertips_count
-
-        openark_cvar_handle = open("cvar_folders\\openark_"+dir+".txt")
-        #last_line = openark_cvar_handle.readlines()[-1]
+        openark_cvar_handle = open("CVAR_folders\\openark_"+dir+".txt", 'w+')
         for line in openark_cvar_handle:
                 openark_line_count += 1
-                #print(" line is {}".format(line))
                 line_split = line.split(' ')
-                #print(len(cvar_sliced_reverse))
                 line_split = ' '.join(line.split(' ')[:]).rstrip()
                 line_split = line_split.split(' ')
                 CVAR_depth_image = line_split[0]
-                #print(CVAR_folder)
-                #print(os.path.dirname(CVAR_folder))
                 CVAR_dir = os.path.dirname(CVAR_depth_image)
-
                 try:
                     print("cvar depth image is {}".format(CVAR_depth_image))
                     print("cvar file name is {}".format(os.path.basename(CVAR_depth_image)))
                     print("file number {}".format(int(os.path.basename(CVAR_depth_image)[:6])))
-
                     cvar_line = linecache.getline(root_path+"\\"+"fingertips.txt", int(os.path.basename(CVAR_depth_image)[:6])+1)
                     print(" linnnne is: {}".format(cvar_line))
-
                     cvar_line_split = ' '.join(cvar_line.split(' ')[:]).rstrip()
                     cvar_line_split = cvar_line_split.split(' ')
-
-                    #cvar_line = cvar_line.rstrip('\n')
-                    #cvar_line_split = cvar_line.split(' ')
                     iterable = iter(cvar_line_split)
                     cvar_sliced = list(iter(lambda: list(itertools.islice(iterable, 3)), []))
                     cvar_sliced_reversed = cvar_sliced[::-1]
@@ -156,8 +147,6 @@ accuracy_file.write(str(accuracy))
 print("total accuracy is {}".format(accuracy))
 accuracy_file.close()
 print("openark line count {}".format(openark_line_count))
-
-
 folder = glob.glob("E:\\datasets\\hand\\CVAR\\test\\*")
 print(len(folder))
 

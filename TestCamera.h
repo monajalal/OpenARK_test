@@ -3,7 +3,7 @@
 #include <opencv2/opencv.hpp>
 
 // OpenARK Libraries
-#include "../DepthCamera.h"
+#include "../OpenARK/DepthCamera.h"
 
 //using namespace Intel::RealSense;
 
