@@ -1,8 +1,7 @@
-CVAR/
-CVAR_folders/
+CVAR/*
+CVAR_folders/*
 P1_accuracy
 P3_accuracy
-P4_accuracy
 P5_accuracy
 P6_accuracy
 P7_accuracy

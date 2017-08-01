@@ -24,12 +24,14 @@ int main(int argc, char** argv) {
 
 	String path_P1 = "C:\\OpenARK_test\\CVAR\\P1\\*_modified.png";
 	String path_P3 = "C:\\OpenARK_test\\CVAR\\P3\\*_modified.png";
-	String path_P4 = "C:\\OpenARK_test\\CVAR\\P4\\*_modified.png";
+	//P4 has so much clutter and yields no result as of now
+	//String path_P4 = "C:\\OpenARK_test\\CVAR\\P4\\*_modified.png";
 	String path_P5 = "C:\\OpenARK_test\\CVAR\\P5\\*_modified.png";
 	String path_P6 = "C:\\OpenARK_test\\CVAR\\P6\\*_modified.png";
 	String path_P7 = "C:\\OpenARK_test\\CVAR\\P7\\*_modified.png";
 
-	std::vector<String> paths = { path_P1, path_P3, path_P4, path_P5, path_P6, path_P7 };
+	//std::vector<String> paths = { path_P1, path_P3, path_P4, path_P5, path_P6, path_P7 };
+	std::vector<String> paths = { path_P1, path_P3, path_P5, path_P6, path_P7 };
 
 	camera_name = "test";
 
