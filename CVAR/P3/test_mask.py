@@ -8,7 +8,6 @@ for depth_file in glob.glob("*_depth.png"):
     width, height = im.size
     pixel_val = list(im.getdata())
 
-    print(pixel_val)
     np_arr = np.array(pixel_val)
     np_reshaped = np_arr.reshape(height, width)
 
@@ -21,9 +20,7 @@ for depth_file in glob.glob("*_depth.png"):
 
     np_reshaped[:, :115] = 0
 
+
     modified_depth_file = depth_file[:-4] + '_modified.png'
     cv2.imwrite(modified_depth_file, (np_reshaped).astype(np.uint16))
-
-
-    print(np_reshaped)
 

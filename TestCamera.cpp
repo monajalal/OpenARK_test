@@ -60,6 +60,7 @@ void TestCamera::fillInZCoords()
 
 	vector<Point3f>  xyzBuffer;
 	auto depth_image = imread(file_name, IMREAD_ANYDEPTH);
+	//if you want to test only a single image uncomment below line
 	//auto depth_image = imread("C:\\OpenARK_test\\CVAR\\P3\\000076_depth_modified.png", IMREAD_ANYDEPTH);
 
 
@@ -84,7 +85,6 @@ void TestCamera::fillInZCoords()
 	cv::flip(xyz_mirror, xyzMap, 1);
 	namedWindow("xyz mirror before", WINDOW_AUTOSIZE);
 	imshow("xyz mirror before", xyz_mirror);
-	//imshow("xyz mirror before", xyzMap);
 }
 
 /***

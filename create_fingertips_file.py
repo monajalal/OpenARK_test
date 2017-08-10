@@ -1,3 +1,8 @@
+__author__ = 'Mona Jalal'
+
+'''
+Create fingertips file given the joints file in CVAR dataset
+'''
 import os
 import itertools
 
