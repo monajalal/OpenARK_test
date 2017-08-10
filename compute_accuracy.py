@@ -33,17 +33,6 @@ except IndexError:
     print('You should enter the absolute path to CVAR dataset!')
     sys.exit(1)
 
-#modify the depth images to convert all zero values to 32001
-#subprocess.call('python modify_depth_images.py', shell=True)
-#create fingertip files out of given CVAR joint files
-#subprocess.call('python create_fingertips_file.py', shell=True)
-#annotate the visible fingertips manually using the mouse click
-#subprocess.call('python annotate_visible_fingertips.py', shell=True)
-#visualize all the fingertips
-#subprocess.call('python vis_all_fingertips.py', shell=True)
-#visualize the visible fingertips
-#subprocess.call('python vis_visible_fingertips.py', shell=True)
-
 #run the OpenARK to get the fingertip annotations
 #os.system("C:\\OpenARK\\x64\\Release\\OpenARK-SDK.exe")
 
@@ -128,8 +117,10 @@ for subdirs, dirs, files in os.walk(CVAR_dataset_path):
                 per_folder_accuracy[dir]= (per_folder_correct_fingertips_count[dir] / cvar_fingertips_count) * 100
                 total_CVAR_fingertips += cvar_fingertips_count
 
-print("total fingertips: {0}, total correct fingertips {1}".format(total_CVAR_fingertips, total_correct_fingertips_count))
+print("total fingertips: {0}, total correct fingertips: {1}".format(total_CVAR_fingertips, total_correct_fingertips_count))
 accuracy = (total_correct_fingertips_count/total_CVAR_fingertips) *100
-print("total accuracy is {}".format(accuracy))
+print("total accuracy is: {}".format(accuracy))
 folder = glob.glob("E:\\datasets\\hand\\CVAR\\test\\*")
-print(per_folder_accuracy)
+print('per folder fingertips count is: \n {}'.format(per_folder_correct_fingertips_count))
+print('per folder accuracy is: \n {}'.format(per_folder_accuracy))
+

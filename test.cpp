@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 	String path_P6 = "C:\\OpenARK_test\\CVAR\\P6\\*_depth.png";
 	String path_P7 = "C:\\OpenARK_test\\CVAR\\P7\\*_depth.png";
 
-	std::vector<String> paths = { path_P1, path_P3, path_P4, path_P5, path_P6, path_P7 };
+	std::vector<String> paths = {path_P1, path_P3, path_P4, path_P5, path_P6, path_P7 };
 
 	camera_name = "test";
 
@@ -42,12 +42,7 @@ int main(int argc, char** argv) {
 		auto starttime = clock();
 		auto frame = 0;
 		//Calibration::XYZToUnity(*pmd, 4, 4, 3);
-		//FileStorage fs;
-		//fs.open("RT_Transform.txt", FileStorage::READ);
-		//Mat r, t;
-		//fs["R"] >> r;
-		//fs["T"] >> t;
-		//fs.release();
+
 		auto u = UDPSender();
 		auto handAverager = StreamingAverager(4, 0.1);
 		auto paleeteAverager = StreamingAverager(6, 0.05);
