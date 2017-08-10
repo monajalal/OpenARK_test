@@ -1,0 +1,28 @@
+README for Egocentric 3D Hand Pose Dataset
+
+Author: Markus Oberweger <oberweger@icg.tugraz.at>
+
+CAMERA: 
+Creative Senz 3D, with intrinsics fx=224.5, fy=230.5, ux=160, uy=120
+
+FORMAT:
+The dataset contain several sequences of a single person. Each folder contains one sequence, with 2166 frames in total. 
+Each sequence contains the depth images in 16bit png format (can be read e.g. with scipy.misc.imread), and 4 annotation files:
+- detections.txt contains the location of the MCP joint of the middle finger, used for hand detection. Each line corresponds to a frame and the format is: name, u, v, z; where u and v are image coordinates and z is the depth in mm.
+- subset_files.txt contains a list of frames, that were selected and used as reference frames by or method.
+- vis.txt contains visibility information for the reference frames. Each reference frame is associated with a list of visible joint indexes.
+- pb.txt contains z-order information for the reference frames, each reference frame is associated with a list. Each z-order information is stored as 4-tupel (a, b, c, d), where each number denotes a joint index. a and b denote the base configuration, c and d denote the configuration. For example (0, 13, 0, 13) means, that the z-order is for joints 0 and 13, and joint 0 is closer to the camera as joint 13. The configuration (0, 13, 13, 0) considers the same two joints, but in this case joint 13 is closer to the camera than joint 0.
+- joint.txt contains the locations of the 21 joints. Each line corresponds to a frame and contains the 21 joint coordinates. The format for each joint is (u, v, z), where u and v are image coordinates and z is the depth in mm.
+
+EVALUATION:
+We propose two evaluation approaches:
+1) Using the full dataset for testing.
+2) Using 5-fold cross validation for testing and training.
+The evaluation should measure the Euclidean 3D joint error, in terms of average and median error over all joints, and by plotting the fraction of frames, where the largest joint error is below some threshold. A curve can be obtained by varying this threshold.
+
+For a description of our method see:
+
+M. Oberweger, G. Riegler, P. Wohlhart, and V. Lepetit.  Efficiently Creating 3D Training Data for Fine Hand Pose Estimation. In Conference on Computer Vision and Pattern Recognition (CVPR), 2016.
+
+
+

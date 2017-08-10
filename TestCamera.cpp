@@ -60,7 +60,7 @@ void TestCamera::fillInZCoords()
 
 	vector<Point3f>  xyzBuffer;
 	auto depth_image = imread(file_name, IMREAD_ANYDEPTH);
-	//auto depth_image = imread("E:\\datasets\\hand\\CVAR\\P1\\000000_depth_modified.png", IMREAD_ANYDEPTH);
+	//auto depth_image = imread("C:\\OpenARK_test\\CVAR\\P3\\000076_depth_modified.png", IMREAD_ANYDEPTH);
 
 
 	namedWindow("depth", WINDOW_AUTOSIZE);
@@ -79,11 +79,12 @@ void TestCamera::fillInZCoords()
 		}
 	}
 
-	//xyzMap = Mat(xyzBuffer, true).reshape(3, depth_image.rows);
+	xyzMap = Mat(xyzBuffer, true).reshape(3, depth_image.rows);
 	auto xyz_mirror = Mat(xyzBuffer, true).reshape(3, depth_image.rows);
 	cv::flip(xyz_mirror, xyzMap, 1);
 	namedWindow("xyz mirror before", WINDOW_AUTOSIZE);
 	imshow("xyz mirror before", xyz_mirror);
+	//imshow("xyz mirror before", xyzMap);
 }
 
 /***
