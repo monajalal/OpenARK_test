@@ -11,9 +11,6 @@ In order to calculate the accuracy on the given CVAR dataset with annotation onl
 **C:\OpenARK_test>python compute_accuracy.py C:\OpenARK_test\CVAR** 
 In above command, the argument to the Python code is the absolute path to the CVAR dataset. In case you want to annotate the dataset manually yourself, run the following scripts:
 
-#modify the depth images to convert all zero values to 32001
-
-python modify_depth_images.py
 
 #create fingertip files out of given CVAR joint files
 
