@@ -12,10 +12,10 @@ In order to calculate the accuracy on the given CVAR dataset with annotation onl
 In above command, the argument to the Python code is the absolute path to the CVAR dataset. In case you want to annotate the dataset manually yourself, run the following scripts in order: <br />
 
 
-1) create fingertip files out of given CVAR joint files: python create_fingertips_file.py <br />
-2) annotate the visible fingertips manually using the mouse click: python annotate_visible_fingertips.py <br />
-3) visualize all the fingertips: python vis_all_fingertips.py <br />
-4) visualize the visible fingertips: python vis_visible_fingertips.py <br />
+1) create fingertip files out of given CVAR joint files: **python create_fingertips_file.py "path to CVAR dataset"** <br />
+2) annotate the visible fingertips **manually using the mouse click: python annotate_visible_fingertips.py "path to CVAR dataset"** <br />
+3) visualize all the fingertips: **python vis_all_fingertips.py "path to CVAR dataset"** <br />
+4) visualize the visible fingertips: **python vis_visible_fingertips.py "path to CVAR dataset"** <br />
 
 
 While annotating the fingertips manually, a hand will be shown to you with all the visible and non-visible fingertips. Use the mouse left-click to select a point near the all visible fingertips in each hand and then press ESC/ Enter. At the end of this task, a file named **all_fingertips.txt** and also another file named **visible_fingertips.txt** is created in each folder. The former has all the annotated as well as invisible fingertips location and the latter has 0 and 1 flag values indicating if a fingertip is invisible or visible. In **all_fingertips.txt** file the format is as follows with depth image name in the beginning of the line followed by five fingertips x an y pixel locations: <br />
