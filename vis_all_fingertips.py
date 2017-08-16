@@ -8,11 +8,18 @@ all the fingertips on newly created images
 import cv2
 import itertools
 import os
+import sys
 
-print(os.getcwd()+'\\CVAR')
-for subdirs, dirs, files in os.walk(os.getcwd()+'\\CVAR'):
+try:
+    CVAR_dataset_path = sys.argv[1]
+except IndexError:
+    CVAR_dataset_path = ""
+    print('You should enter the absolute path to CVAR dataset!')
+    sys.exit(1)
+
+for subdirs, dirs, files in os.walk(CVAR_dataset_path):
     for dir in dirs:
-        cur_path = os.getcwd()+'\\CVAR'+'\\'+dir
+        cur_path = CVAR_dataset_path + '\\' + dir
         with open(cur_path + '\\all_fingertips.txt') as fingertips_file:
             for line in fingertips_file:
                 points = []

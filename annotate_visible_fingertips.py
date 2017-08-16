@@ -1,7 +1,24 @@
+__author__ = 'Mona Jalal'
+
+'''
+Uses user's left mouse click to annotate the fingertips
+Guide from the original CVAR dataset is shown to user and
+user should left click on a point close to the fingertip that is 
+visible to her.
+'''
+
 import cv2
 import itertools
 import math
 import os
+import sys
+
+try:
+    CVAR_dataset_path = sys.argv[1]
+except IndexError:
+    CVAR_dataset_path = ""
+    print('You should enter the absolute path to CVAR dataset!')
+    sys.exit(1)
 
 def select_point(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -9,9 +26,9 @@ def select_point(event, x, y, flags, param):
         points.append((x,y))
 
 
-for subdirs, dirs, files in os.walk(os.getcwd()+'\\CVAR'):
+for subdirs, dirs, files in os.walk(CVAR_dataset_path):
     for dir in dirs:
-        cur_path = os.getcwd()+'\\CVAR'+'\\'+dir
+        cur_path = CVAR_dataset_path+'\\'+dir
         count = 0
         visible_fingertips_file = open(cur_path+'\\'+'visible_fingertips.txt', 'w+')
         os.remove(cur_path +'\\'+'correct_fingertips.txt')

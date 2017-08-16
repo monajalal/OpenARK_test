@@ -3,10 +3,17 @@ __author__ = 'Mona Jalal'
 '''
 Create fingertips file given the joints file in CVAR dataset
 '''
+
 import os
 import itertools
+import sys
 
-CVAR_dataset_path = "C:\\OpenARK_test\\CVAR"
+try:
+    CVAR_dataset_path = sys.argv[1]
+except IndexError:
+    CVAR_dataset_path = ""
+    print('You should enter the absolute path to CVAR dataset!')
+    sys.exit(1)
 
 for subdirs, dirs, files in os.walk(CVAR_dataset_path):
     for dir in dirs:
