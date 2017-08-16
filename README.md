@@ -38,7 +38,4 @@ We have used [**Python3.6**](https://www.continuum.io/downloads) from Continuum 
 
 ## Credits and references
 
-Mona Jalal, Joseph Menke, Allen Y. Yang, S. Shankar Sastry.
-
-
-
+[Mona Jalal](http://monajalal.com/), [Joseph Menke](https://people.eecs.berkeley.edu/~joemenke/), [Allen Y. Yang](https://people.eecs.berkeley.edu/~yang/), [S. Shankar Sastry](http://robotics.eecs.berkeley.edu/~sastry/).
